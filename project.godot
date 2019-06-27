@@ -8,14 +8,32 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "BadBullet",
+"language": "GDScript",
+"path": "res://BadBullet.gd"
+}, {
+"base": "RigidBody2D",
+"class": "GoodBullet",
+"language": "GDScript",
+"path": "res://GoodBullet.gd"
+}, {
+"base": "RigidBody2D",
+"class": "Mob",
+"language": "GDScript",
+"path": "res://Mob.gd"
+} ]
 _global_script_class_icons={
-
+"BadBullet": "",
+"GoodBullet": "",
+"Mob": ""
 }
 
 [application]
 
 config/name="Galaga"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [rendering]

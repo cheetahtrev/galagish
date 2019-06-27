@@ -1,10 +1,15 @@
 extends Area2D
 
+signal hit
+signal shoot
+
 export var speed = 400  # How fast the player will move (pixels/sec).
 var screen_size  # Size of the game window.
 
 func _process(delta):
     var velocity = Vector2()  # The player's movement vector.
+    if Input.is_action_pressed("ui_select"):
+        emit_signal("shoot")
     if Input.is_action_pressed("ui_right"):
         velocity.x += 1
     if Input.is_action_pressed("ui_left"):
@@ -40,9 +45,10 @@ func _ready():
 
 
 func _on_Player_body_entered(body):
-    hide()  # Player disappears after being hit.
-    emit_signal("hit")
-    $CollisionShape2D.set_deferred("disabled", true) # Replace with function body.
+    if (body is Mob):
+        hide()
+        emit_signal("hit")
+        $CollisionShape2D.set_deferred("disabled", true) # Replace with function body.
 
 func start(pos):
     position = pos
