@@ -41,18 +41,21 @@ func _on_MobTimer_timeout():
     mob.linear_velocity = mob.linear_velocity.rotated(direction)
 
 func mobhit():
+    print("hit")
     score += 1
     $HUD.update_score(score)
 
 func _on_Player_shoot():
+    print("shoot")
     # Create a Mob instance and add it to the scene.
     var bullet = GoodBullet.instance()
     add_child(bullet)
     # Set the mob's direction perpendicular to the path direction.
-    var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
+    var direction = $Player.rotation - PI / 2
     # Set the mob's position to a random location.
     bullet.position = $Player.position
     bullet.rotation = direction
     # Set the velocity (speed & direction).
-    bullet.linear_velocity = Vector2(GoodBullet.speed, 0)
+    bullet.linear_velocity = Vector2(300, 0)
     bullet.linear_velocity = bullet.linear_velocity.rotated(direction)
+    yield(get_tree().create_timer(2.0), "timeout")

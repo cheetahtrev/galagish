@@ -24,6 +24,7 @@ radius = 27.1728
 height = 15.8335
 
 [node name="Player" type="Area2D"]
+gravity_vec = Vector2( 0, 0 )
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
