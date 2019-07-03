@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://BadBullet.gd"
 }, {
-"base": "RigidBody2D",
+"base": "Area2D",
 "class": "GoodBullet",
 "language": "GDScript",
 "path": "res://GoodBullet.gd"

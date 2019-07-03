@@ -2,7 +2,7 @@ extends Node
 
 export (PackedScene) var GoodBullet
 export (PackedScene) var Mob
-var score
+var score = 0
 
 func _ready():
     randomize()
@@ -31,6 +31,7 @@ func _on_MobTimer_timeout():
     # Create a Mob instance and add it to the scene.
     var mob = Mob.instance()
     add_child(mob)
+    mob.connect("mobhit",self,"mobhit")
     # Set the mob's direction perpendicular to the path direction.
     var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
     # Set the mob's position to a random location.
@@ -41,21 +42,14 @@ func _on_MobTimer_timeout():
     mob.linear_velocity = mob.linear_velocity.rotated(direction)
 
 func mobhit():
-    print("hit")
+    print("mobhit")
     score += 1
     $HUD.update_score(score)
 
 func _on_Player_shoot():
-    print("shoot")
-    # Create a Mob instance and add it to the scene.
-    var bullet = GoodBullet.instance()
-    add_child(bullet)
-    # Set the mob's direction perpendicular to the path direction.
-    var direction = $Player.rotation - PI / 2
-    # Set the mob's position to a random location.
-    bullet.position = $Player.position
-    bullet.rotation = direction
-    # Set the velocity (speed & direction).
-    bullet.linear_velocity = Vector2(300, 0)
-    bullet.linear_velocity = bullet.linear_velocity.rotated(direction)
-    yield(get_tree().create_timer(2.0), "timeout")
+    if $ReloadTimer.is_stopped():
+        $ReloadTimer.start()
+        # Create a Mob instance and add it to the scene.
+        var bullet = GoodBullet.instance()
+        add_child(bullet)
+        bullet.position = $Player.position

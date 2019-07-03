@@ -47,5 +47,4 @@ shape = SubResource( 2 )
 position = Vector2( -0.333328, -0.666671 )
 scale = Vector2( 2.76667, 2.66667 )
 [connection signal="body_entered" from="." to="." method="_on_RigidBody2D_body_entered"]
-[connection signal="mobhit" from="." to="." method="mobhit"]
 [connection signal="screen_exited" from="visibility" to="." method="_on_Visibility_screen_exited"]
