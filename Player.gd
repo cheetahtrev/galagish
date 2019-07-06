@@ -8,8 +8,6 @@ var screen_size  # Size of the game window.
 
 func _process(delta):
     var velocity = Vector2()  # The player's movement vector.
-    if Input.is_action_pressed("ui_select"):
-        emit_signal("shoot")
     if Input.is_action_pressed("ui_right"):
         velocity.x += 1
     if Input.is_action_pressed("ui_left"):

@@ -2,7 +2,7 @@ extends Area2D
 
 class_name GoodBullet
 
-var speed = 300
+var speed = 400
 var velocity = Vector2(0,-speed)
 
 func _on_Visibility_screen_exited():

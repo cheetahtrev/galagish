@@ -3,6 +3,7 @@ extends Node
 export (PackedScene) var GoodBullet
 export (PackedScene) var Mob
 var score = 0
+var shooting
 
 func _ready():
     randomize()
@@ -46,10 +47,17 @@ func mobhit():
     score += 1
     $HUD.update_score(score)
 
-func _on_Player_shoot():
-    if $ReloadTimer.is_stopped():
-        $ReloadTimer.start()
+func _input(event):
+    if event.is_action_pressed("ui_select"):
+        shooting = true
+    if event.is_action_released("ui_select"):
+        shooting = false
+
+func _process(delta):
+    if (shooting):
         # Create a Mob instance and add it to the scene.
         var bullet = GoodBullet.instance()
         add_child(bullet)
         bullet.position = $Player.position
+        shooting = false
+

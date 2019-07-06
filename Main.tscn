@@ -38,8 +38,6 @@ visible = false
 [node name="Mob" parent="." instance=ExtResource( 3 )]
 
 [node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
-
-[node name="ReloadTimer" type="Timer" parent="."]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="hit" from="Player" to="." method="game_over"]
