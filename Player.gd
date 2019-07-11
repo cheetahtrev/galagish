@@ -1,7 +1,8 @@
 extends Area2D
 
+class_name Player
+
 signal hit
-signal shoot
 
 export var speed = 400  # How fast the player will move (pixels/sec).
 var screen_size  # Size of the game window.
@@ -35,20 +36,21 @@ func _process(delta):
 
 func _ready():
     hide()
-    screen_size = get_viewport_rect().size # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
+    screen_size = get_viewport_rect().size
 
 func _on_Player_body_entered(body):
     if (body is Mob):
-        hide()
-        emit_signal("hit")
-        $CollisionShape2D.set_deferred("disabled", true) # Replace with function body.
+        _die()
+
+func _die():
+    hide()
+    emit_signal("hit")
+    $CollisionShape2D.set_deferred("disabled", true) # Replace with function body.
 
 func start(pos):
     position = pos
     show()
     $CollisionShape2D.disabled = false
+    
+func _bullethit():
+    _die()

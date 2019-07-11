@@ -15,6 +15,7 @@ _data = {
 script = ExtResource( 1 )
 GoodBullet = ExtResource( 2 )
 Mob = ExtResource( 3 )
+Player = ExtResource( 4 )
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.75
@@ -34,12 +35,7 @@ curve = SubResource( 1 )
 visible = false
 
 [node name="HUD" parent="." instance=ExtResource( 5 )]
-
-[node name="Mob" parent="." instance=ExtResource( 3 )]
-
-[node name="RigidBody2D" parent="." instance=ExtResource( 2 )]
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="hit" from="Player" to="." method="game_over"]
-[connection signal="shoot" from="Player" to="." method="_on_Player_shoot"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]

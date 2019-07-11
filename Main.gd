@@ -2,10 +2,12 @@ extends Node
 
 export (PackedScene) var GoodBullet
 export (PackedScene) var Mob
+export (PackedScene) var Player
 var score = 0
 var shooting
 
 func _ready():
+    print("main", self)
     randomize()
 
 func game_over():
@@ -18,6 +20,7 @@ func new_game():
     score = 0
     $Player.start($StartPosition.position)
     $StartTimer.start()
+    
     $HUD.update_score(score)
     $HUD.show_message("Get Ready")
 
@@ -42,6 +45,8 @@ func _on_MobTimer_timeout():
     mob.linear_velocity = Vector2(rand_range(mob.min_speed, mob.max_speed), 0)
     mob.linear_velocity = mob.linear_velocity.rotated(direction)
 
+
+
 func mobhit():
     print("mobhit")
     score += 1
@@ -60,4 +65,3 @@ func _process(delta):
         add_child(bullet)
         bullet.position = $Player.position
         shooting = false
-

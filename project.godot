@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "RigidBody2D",
+"base": "Area2D",
 "class": "BadBullet",
 "language": "GDScript",
 "path": "res://BadBullet.gd"
@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Mob",
 "language": "GDScript",
 "path": "res://Mob.gd"
+}, {
+"base": "Area2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Player.gd"
 } ]
 _global_script_class_icons={
 "BadBullet": "",
 "GoodBullet": "",
-"Mob": ""
+"Mob": "",
+"Player": ""
 }
 
 [application]
