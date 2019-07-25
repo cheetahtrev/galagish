@@ -38,10 +38,6 @@ func _ready():
     hide()
     screen_size = get_viewport_rect().size
 
-func _on_Player_body_entered(body):
-    if (body is Mob):
-        _die()
-
 func _die():
     hide()
     emit_signal("hit")
@@ -54,3 +50,8 @@ func start(pos):
     
 func _bullethit():
     _die()
+
+
+func _on_Player_area_entered(area):
+    if (area is Mob):
+        _die()

@@ -4,51 +4,55 @@ export (PackedScene) var GoodBullet
 export (PackedScene) var Mob
 export (PackedScene) var Player
 var score = 0
+var highscore = 0
+var time = 0
+var hightime = 0
 var shooting
+signal dive
+var difficulty = 2.34
 
 func _ready():
-    print("main", self)
     randomize()
 
 func game_over():
     $MobTimer.stop()
-    print("Mob Timer Stopped")
     $HUD.show_game_over()
+    $ScoreTimer.stop()
+    if (score > highscore):
+        highscore = score
+    if (time > hightime):
+        hightime = time
 
 func new_game():
-    print("New Game")
     score = 0
+    time = 0
+    difficulty = 2.34
     $Player.start($StartPosition.position)
     $StartTimer.start()
-    
     $HUD.update_score(score)
+    $HUD.update_time(time)
     $HUD.show_message("Get Ready")
 
 func _on_StartTimer_timeout():
+    $ScoreTimer.start()
     $MobTimer.start()
     $StartTimer.stop()
-    print("Start Timer Ended")
+    $DiveTimer.start()
 
 func _on_MobTimer_timeout():
     # Choose a random location on Path2D.
     $MobPath/MobSpawnLocation.set_offset(randi())
     # Create a Mob instance and add it to the scene.
     var mob = Mob.instance()
+    mob.difficulty = difficulty
     add_child(mob)
     mob.connect("mobhit",self,"mobhit")
-    # Set the mob's direction perpendicular to the path direction.
-    var direction = $MobPath/MobSpawnLocation.rotation + PI / 2
-    # Set the mob's position to a random location.
+    $Player.connect("hit", mob, "hit")
+    connect("dive", mob, "dive")
     mob.position = $MobPath/MobSpawnLocation.position
-    mob.rotation = direction
-    # Set the velocity (speed & direction).
-    mob.linear_velocity = Vector2(rand_range(mob.min_speed, mob.max_speed), 0)
-    mob.linear_velocity = mob.linear_velocity.rotated(direction)
-
-
+    mob.rotation = PI/2
 
 func mobhit():
-    print("mobhit")
     score += 1
     $HUD.update_score(score)
 
@@ -65,3 +69,13 @@ func _process(delta):
         add_child(bullet)
         bullet.position = $Player.position
         shooting = false
+
+
+func _on_DiveTimer_timeout():
+    emit_signal("dive")
+    difficulty *= 0.9
+    $DiveTimer.start()
+
+func _on_ScoreTimer_timeout():
+    time += 1
+    $HUD.update_time(time)
