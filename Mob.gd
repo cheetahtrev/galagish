@@ -35,7 +35,10 @@ func _process(delta):
         if (position.y >= hover_height):
             position.y = hover_height
             mob_mode = MM.HOVER
-            velocity = Vector2(hover_speed,0)
+            if (rand_range(0,1) >= 0.5):
+                velocity = Vector2(hover_speed,0)
+            else:
+                velocity = Vector2(-hover_speed,0)
     if (mob_mode == MM.HOVER):
         position += velocity * delta
         if (position.x >= 1014):

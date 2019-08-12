@@ -40,9 +40,13 @@ visible = false
 wait_time = 10.0
 
 [node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="DifficultyTimer" type="Timer" parent="."]
+wait_time = 10.0
 [connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="start_game" from="HUD" to="." method="new_game"]
 [connection signal="timeout" from="DiveTimer" to="." method="_on_DiveTimer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="DifficultyTimer" to="." method="_on_DifficultyTimer_timeout"]

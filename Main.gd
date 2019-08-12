@@ -10,6 +10,7 @@ var hightime = 0
 var shooting
 signal dive
 var difficulty = 2.34
+var mobtimerwaittime = 0.5
 
 func _ready():
     randomize()
@@ -18,6 +19,7 @@ func game_over():
     $MobTimer.stop()
     $HUD.show_game_over()
     $ScoreTimer.stop()
+    $DifficultyTimer.stop()
     if (score > highscore):
         highscore = score
     if (time > hightime):
@@ -27,6 +29,7 @@ func new_game():
     score = 0
     time = 0
     difficulty = 2.34
+    mobtimerwaittime = 0.5
     $Player.start($StartPosition.position)
     $StartTimer.start()
     $HUD.update_score(score)
@@ -38,6 +41,7 @@ func _on_StartTimer_timeout():
     $MobTimer.start()
     $StartTimer.stop()
     $DiveTimer.start()
+    $DifficultyTimer.start()
 
 func _on_MobTimer_timeout():
     # Choose a random location on Path2D.
@@ -79,3 +83,6 @@ func _on_DiveTimer_timeout():
 func _on_ScoreTimer_timeout():
     time += 1
     $HUD.update_time(time)
+
+func _on_DifficultyTimer_timeout():
+    $MobTimer.wait_time = mobtimerwaittime * 0.95
