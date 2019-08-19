@@ -46,6 +46,10 @@ config/icon="res://icon.png"
 
 window/size/resizable=false
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

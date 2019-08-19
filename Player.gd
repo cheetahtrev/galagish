@@ -8,6 +8,7 @@ export var speed = 400  # How fast the player will move (pixels/sec).
 var screen_size  # Size of the game window.
 
 func _process(delta):
+    position = get_viewport().get_mouse_position()
     var velocity = Vector2()  # The player's movement vector.
     if Input.is_action_pressed("ui_right"):
         velocity.x += 1

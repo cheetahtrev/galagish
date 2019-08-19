@@ -63,8 +63,9 @@ func mobhit():
 func _input(event):
     if event.is_action_pressed("ui_select"):
         shooting = true
-    if event.is_action_released("ui_select"):
-        shooting = false
+    if event is InputEventScreenTouch:
+        if event.is_pressed():
+            shooting = true
 
 func _process(delta):
     if (shooting):
